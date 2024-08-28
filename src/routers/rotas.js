@@ -7,7 +7,7 @@ const { validarCampos, idValido, listaVazia } = require('../midware/intermediari
 rotas.post("/cadastrar", validarCampos, cadastrarAluno);
 rotas.get("/listar", listaVazia, listarAlunos);
 rotas.get("/detalhar/:id", idValido, detalharAluno);
-rotas.post("/atualizar/:id", idValido, atualizarAluno);
+rotas.put("/atualizar/:id", idValido, atualizarAluno);
 rotas.delete("/excluir/:id", idValido, deletarAluno);
 
 module.exports = rotas;

@@ -5,7 +5,10 @@
     "title": "Projeto Escola Generation",
     "description": "Essa API tem como objetivo a manipulação dos dados dos alunos de uma escola",
     "contact": {
-      "email": "ton_rafael@hotmail.com"
+      "name": "Ewerton Bertoldo",
+      "email": "ton_rafael@hotmail.com",
+      "url": "https://github.com/EwertonRafael"
+
     },
     "server":{
       "url": "http://localhost:3000/",
@@ -121,7 +124,9 @@
             "in": "path",
             "required": true,
             "description": "ID do aluno para atualizar",
-            "type": "integer"
+            "schema":{
+              "type": "integer"
+            }
           }
         ],
         "requestBody": {
