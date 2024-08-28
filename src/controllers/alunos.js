@@ -36,12 +36,8 @@ const atualizarAluno = async (req, res) => {
     const { id } = req.params
     const { nome, idade, nota1, nota2, professor, sala } = req.body
     const alunoAtualizado = await knex("alunos").where("id", id).update({ nome, idade, nota1, nota2, professor, sala })
-
-    if (alunoAtualizado) {
-      return res.status(200).json({ mensagem: "Aluno atualizado com sucesso" })
-    } else {
-      return res.status(404).json({ mensagem: "ID do aluno não encontrado" });
-    }
+    if (!alunoAtualizado) return res.status(404).json({ mensagem: "ID do aluno não encontrado" })
+    return res.status(200).json({ mensagem: "Aluno atualizado com sucesso" });
   } catch (error) {
     return res.status(500).json({ mensagem: "Erro interno de servidor" });
   }
