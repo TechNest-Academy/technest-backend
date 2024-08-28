@@ -109,6 +109,9 @@
           },
           "404": {
             "description": "Aluno não encontrado"
+          },
+          "400":{
+            "description": "Não permitido letras, o ID é um número"
           }
         }
       }
@@ -166,7 +169,7 @@
             "description": "Aluno não encontrado"
           },
           "400":{
-            "description": "Informe um ID válido"
+            "description": "Não permitido letras, o ID é um número"
           }
         }
       }
@@ -193,7 +196,7 @@
             "description": "ID do aluno não encontrado"
           },
           "400":{
-            "description": "Informe um ID válido"
+            "description": "Não permitido letras, o ID é um número"
           }
         }
       }
