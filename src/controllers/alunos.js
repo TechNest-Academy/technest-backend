@@ -3,11 +3,7 @@ const knex = require('../database/conexao');
 const listarAlunos = async (req, res) => {
   try {
     const todosAlunos = await knex("alunos").select("*")
-    if (todosAlunos.length === 0) {
-      return res.status(200).json("Lista vazia")
-    } else {
-      return res.status(200).json(todosAlunos)
-    }
+    return res.status(200).json(todosAlunos)
   } catch (error) {
     return res.status(500).json({ mensagem: "Erro interno de servidor" });
   }
@@ -16,7 +12,6 @@ const listarAlunos = async (req, res) => {
 const detalharAluno = async (req, res) => {
   try {
     const { id } = req.params
-    if (isNaN(id)) return res.status(400).json({ mensagem: 'Informe um ID válido' })
     const aluno = await knex("alunos").select("*").where("id", id).first()
     if (!aluno) return res.status(404).json({ mensagem: "ID do aluno não encontrado" })
     return res.status(200).json(aluno)
@@ -40,7 +35,6 @@ const atualizarAluno = async (req, res) => {
   try {
     const { id } = req.params
     const { nome, idade, nota1, nota2, professor, sala } = req.body
-    if (isNaN(id)) return res.status(400).json({ mensagem: 'Informe um ID válido' })
     const alunoAtualizado = await knex("alunos").where("id", id).update({ nome, idade, nota1, nota2, professor, sala })
 
     if (alunoAtualizado) {
@@ -55,7 +49,6 @@ const atualizarAluno = async (req, res) => {
 const deletarAluno = async (req, res) => {
   try {
     const { id } = req.params
-    if (isNaN(id)) return res.status(400).json({ mensagem: 'Informe um ID válido' })
     const aluno = await knex("alunos").where("id", id).del();
     if (aluno === 0) return res.status(404).json({ mensagem: "ID do aluno não encontrado" })
     return res.status(204).json()
