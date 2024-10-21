@@ -23,8 +23,8 @@ const detalharAluno = async (req, res) => {
 
 const cadastrarAluno = async (req, res) => {
   try {
-    const { nome, idade, nota1, nota2, professor, sala } = req.body
-    const alunoCadastrado = await knex("alunos").insert({ nome, idade, nota1, nota2, professor, sala }).returning("*")
+    const { nome, idade, primeiraNota, segundaNota, professor, sala } = req.body
+    const alunoCadastrado = await knex("alunos").insert({ nome, idade, primeiraNota, segundaNota, professor, sala }).returning("*")
     return res.status(201).json({ mensagem: "Aluno cadastrado com sucesso!", Aluno: alunoCadastrado });
   } catch (error) {
     return res.status(500).json({ mensagem: "Erro interno de servidor" });
@@ -34,8 +34,8 @@ const cadastrarAluno = async (req, res) => {
 const atualizarAluno = async (req, res) => {
   try {
     const { id } = req.params
-    const { nome, idade, nota1, nota2, professor, sala } = req.body
-    const alunoAtualizado = await knex("alunos").where("id", id).update({ nome, idade, nota1, nota2, professor, sala })
+    const { nome, idade, primeiraNota, segundaNota, professor, sala } = req.body
+    const alunoAtualizado = await knex("alunos").where("id", id).update({ nome, idade, primeiraNota, segundaNota, professor, sala })
     if (!alunoAtualizado) return res.status(404).json({ mensagem: "ID do aluno não encontrado" })
     return res.status(200).json({ mensagem: "Aluno atualizado com sucesso" });
   } catch (error) {
