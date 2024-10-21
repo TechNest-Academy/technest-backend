@@ -17,10 +17,12 @@ const validarCampos = async (req, res, next) => {
     }else {
       next();
     }
+
+    next();
   } catch (error) {
-    return res.status(500).json({ mensagem: "erro interno." });
+    return res.status(500).json({ mensagem: "Erro interno de servidor." });
   }
-}
+};
 
 const idValido = async (req, res, next) => {
   try {
@@ -28,7 +30,7 @@ const idValido = async (req, res, next) => {
     if (isNaN(id)) return res.status(400).json({ mensagem: 'Informe um ID válido' });
     next();
   } catch (error) {
-    return res.status(500).json({ mensagem: "erro interno." });
+    return res.status(500).json({ mensagem: "Erro interno." });
   }
 }
 
