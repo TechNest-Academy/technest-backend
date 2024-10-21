@@ -1,0 +1,242 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "Projeto Escola Generation",
+    "description": "Essa API tem como objetivo a manipulação dos dados dos alunos de uma escola",
+    "contact": {
+      "name": "Ewerton Bertoldo",
+      "email": "ton_rafael@hotmail.com",
+      "url": "https://github.com/EwertonRafael"
+
+    },
+    "server":{
+      "url": "http://localhost:3000/",
+      "description": "Api de desenvolvimento"
+    }
+  },
+  "paths": {
+    "/cadastrar": {
+      "post": {
+        "summary": "Cadastro de aluno",
+        "description": "Essa rota é responsável por cadastrar o aluno.",
+        "tags": ["Aluno"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/alunos"
+              },
+              "examples": {
+                "alunos": {
+                  "value": {
+                    "nome": "amanda",
+                    "idade": 18,
+                    "nota1": 7,
+                    "nota2": 6,
+                    "professor": "francisco",
+                    "sala": 5
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "CREATED",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/alunos"
+                }
+              }
+            }
+          },
+          "404":{
+            "description": "Todos os campos devem ser preenchidos."
+          }
+        }
+      }
+    },
+    "/listar": {
+      "get": {
+        "summary": "Listar todos os alunos",
+        "description": "Essa rota é responsável por listar todos os alunos cadastrados.",
+        "tags": ["Aluno"],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/alunos"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/detalhar/{id}": {
+      "get": {
+        "summary": "Detalhar um aluno",
+        "description": "Essa rota é responsável por obter os detalhes de um aluno específico pelo ID.",
+        "tags": ["Aluno"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "ID do aluno para detalhar",
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/alunos"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Aluno não encontrado"
+          },
+          "400":{
+            "description": "Não permitido letras, o ID é um número"
+          }
+        }
+      }
+    },
+    "/atualizar/{id}": {
+      "put": {
+        "summary": "Atualizar um aluno",
+        "description": "Essa rota é responsável por atualizar as informações de um aluno específico pelo ID.",
+        "tags": ["Aluno"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "ID do aluno para atualizar",
+            "schema":{
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/alunos"
+              },
+              "examples": {
+                "alunos": {
+                  "value": {
+                    "nome": "Robson",
+                    "idade": 21,
+                    "nota1": 5,
+                    "nota2": 9,
+                    "professor": "Caio",
+                    "sala": 3
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Aluno atualizado com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/alunos"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Aluno não encontrado"
+          },
+          "400":{
+            "description": "Não permitido letras, o ID é um número"
+          }
+        }
+      }
+    },
+    "/excluir/{id}": {
+      "delete": {
+        "summary": "Excluir um aluno",
+        "description": "Essa rota é responsável por excluir um aluno específico pelo ID.",
+        "tags": ["Aluno"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "ID do aluno para excluir",
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Aluno excluído com sucesso"
+          },
+          "404": {
+            "description": "ID do aluno não encontrado"
+          },
+          "400":{
+            "description": "Não permitido letras, o ID é um número"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "alunos": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "ID do aluno"
+          },
+          "nome": {
+            "type": "string",
+            "description": "Nome do aluno"
+          },
+          "idade": {
+            "type": "integer",
+            "description": "Idade do aluno"
+          },
+          "nota1": {
+            "type": "integer",
+            "description": "Nota do primeiro semestre"
+          },
+          "nota2": {
+            "type": "integer",
+            "description": "Nota do segundo semestre"
+          },
+          "professor": {
+            "type": "string",
+            "description": "Nome do professor responsável"
+          },
+          "sala": {
+            "type": "integer",
+            "description": "Número da sala"
+          }
+        }
+      }
+    }
+  }
+}
