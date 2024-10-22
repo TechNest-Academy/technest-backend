@@ -2,8 +2,8 @@ const knex = require('../database/conexao');
 
 const validarCampos = async (req, res, next) => {
   try {
-    const { nome, idade, nota1, nota2, professor, sala } = req.body;
-    if (!nome || !idade || !nota1 || !nota2 || !professor || !sala) {
+    const { nome, idade, email, notaprimeiromodulo, notasegundomodulo, media } = req.body;
+    if (!nome || !idade || !email || !notaprimeiromodulo || !notasegundomodulo || !media) {
       return res.status(404).json({ mensagem: "Todos os campos devem ser preenchidos." });
     } else {
       next();

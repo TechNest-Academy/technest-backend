@@ -32,10 +32,10 @@
                   "value": {
                     "nome": "amanda",
                     "idade": 18,
-                    "nota1": 7,
-                    "nota2": 6,
-                    "professor": "francisco",
-                    "sala": 5
+                    "email": "amanda@hotmail.com",
+                    "notaprimeiromodulo": 7.0,
+                    "notasegundomodulo": 6.0,
+                    "media": 6.5
                   }
                 }
               }
@@ -143,10 +143,10 @@
                   "value": {
                     "nome": "Robson",
                     "idade": 21,
-                    "nota1": 5,
-                    "nota2": 9,
-                    "professor": "Caio",
-                    "sala": 3
+                    "email": "robson@example.com",
+                    "notaprimeiromodulo": 7.0,
+                    "notasegundomodulo": 9.0,
+                    "media": 8.0
                   }
                 }
               }
@@ -219,21 +219,21 @@
             "type": "integer",
             "description": "Idade do aluno"
           },
-          "nota1": {
+          "email": {
+            "type": "string",
+            "description": "Email do aluno"
+          },
+          "notaprimeiromodulo": {
             "type": "integer",
             "description": "Nota do primeiro semestre"
           },
-          "nota2": {
+          "notasegundomodulo": {
             "type": "integer",
             "description": "Nota do segundo semestre"
           },
-          "professor": {
-            "type": "string",
-            "description": "Nome do professor responsável"
-          },
-          "sala": {
+          "media": {
             "type": "integer",
-            "description": "Número da sala"
+            "description": "Media do aluno"
           }
         }
       }
