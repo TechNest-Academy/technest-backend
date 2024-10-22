@@ -34,8 +34,7 @@
                     "idade": 18,
                     "email": "amanda@hotmail.com",
                     "notaprimeiromodulo": 7.0,
-                    "notasegundomodulo": 6.0,
-                    "media": 6.5
+                    "notasegundomodulo": 6.0                 
                   }
                 }
               }
@@ -92,8 +91,7 @@
             "name": "id",
             "in": "path",
             "required": true,
-            "description": "ID do aluno para detalhar",
-            "type": "integer"
+            "description": "ID do aluno para detalhar"
           }
         ],
         "responses": {
@@ -126,10 +124,7 @@
             "name": "id",
             "in": "path",
             "required": true,
-            "description": "ID do aluno para atualizar",
-            "schema":{
-              "type": "integer"
-            }
+            "description": "ID do aluno para atualizar"
           }
         ],
         "requestBody": {
@@ -144,9 +139,8 @@
                     "nome": "Robson",
                     "idade": 21,
                     "email": "robson@example.com",
-                    "notaprimeiromodulo": 7.0,
-                    "notasegundomodulo": 9.0,
-                    "media": 8.0
+                    "notaprimeiromodulo": 7.5,
+                    "notasegundomodulo": 9.5
                   }
                 }
               }
