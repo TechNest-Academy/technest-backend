@@ -83,3 +83,9 @@ A documentação Swagger está disponível na rota `/api-docs` e detalha todos o
 - **Swagger UI**
 
 ---
+
+#### Desenvolvido por:
+
+- [Marcelo Costa](https://github.com/159753marcelo)
+- [Ewerton Bertoldo](https://github.com/EwertonRafael) 
+- [Felipe Macedo](https://github.com/felipemacedo1) 
