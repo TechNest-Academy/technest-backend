@@ -3,6 +3,15 @@
 
 Este projeto é uma API simples para gerenciar alunos. Ele permite cadastrar, listar, detalhar, atualizar e excluir informações de alunos. A API é desenvolvida utilizando Node.js, Express e PostgreSQL, com o uso de Knex.js como query builder.
 
+## Tecnologias utilizadas
+
+- **Node.js**
+- **Express**
+- **PostgreSQL**
+- **Swagger UI**
+- **Knex.js**
+- **dotenv**
+
 ## Requisitos
 
 - Node.js instalado (versão 14.x ou superior)
@@ -74,18 +83,7 @@ http://localhost:3000/api-docs
 
 A documentação Swagger está disponível na rota `/api-docs` e detalha todos os endpoints da API com exemplos de requisições e respostas.
 
-## Tecnologias utilizadas
-
-- **Node.js**
-- **Express**
-- **PostgreSQL**
-- **Knex.js**
-- **Swagger UI**
-
----
 
 #### Desenvolvido por:
 
-- [Marcelo Costa](https://github.com/159753marcelo)
-- [Ewerton Bertoldo](https://github.com/EwertonRafael) 
-- [Felipe Macedo](https://github.com/felipemacedo1) 
+- [Marcelo Costa](https://github.com/159753marcelo), [Ewerton Bertoldo](https://github.com/EwertonRafael) e [Felipe Macedo](https://github.com/felipemacedo1) 
