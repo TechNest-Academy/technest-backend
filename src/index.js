@@ -15,4 +15,4 @@ app.use(rotas);
 
 app.listen(port,() => {
   console.log(`Rodando na url: http://localhost:${port}`);
-})
+});

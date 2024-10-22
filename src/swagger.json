@@ -32,10 +32,9 @@
                   "value": {
                     "nome": "amanda",
                     "idade": 18,
-                    "nota1": 7,
-                    "nota2": 6,
-                    "professor": "francisco",
-                    "sala": 5
+                    "email": "amanda@hotmail.com",
+                    "notaprimeiromodulo": 7.0,
+                    "notasegundomodulo": 6.0                 
                   }
                 }
               }
@@ -92,8 +91,7 @@
             "name": "id",
             "in": "path",
             "required": true,
-            "description": "ID do aluno para detalhar",
-            "type": "integer"
+            "description": "ID do aluno para detalhar"
           }
         ],
         "responses": {
@@ -126,10 +124,7 @@
             "name": "id",
             "in": "path",
             "required": true,
-            "description": "ID do aluno para atualizar",
-            "schema":{
-              "type": "integer"
-            }
+            "description": "ID do aluno para atualizar"
           }
         ],
         "requestBody": {
@@ -143,10 +138,9 @@
                   "value": {
                     "nome": "Robson",
                     "idade": 21,
-                    "nota1": 5,
-                    "nota2": 9,
-                    "professor": "Caio",
-                    "sala": 3
+                    "email": "robson@example.com",
+                    "notaprimeiromodulo": 7.5,
+                    "notasegundomodulo": 9.5
                   }
                 }
               }
@@ -219,21 +213,21 @@
             "type": "integer",
             "description": "Idade do aluno"
           },
-          "nota1": {
+          "email": {
+            "type": "string",
+            "description": "Email do aluno"
+          },
+          "notaprimeiromodulo": {
             "type": "integer",
             "description": "Nota do primeiro semestre"
           },
-          "nota2": {
+          "notasegundomodulo": {
             "type": "integer",
             "description": "Nota do segundo semestre"
           },
-          "professor": {
-            "type": "string",
-            "description": "Nome do professor responsável"
-          },
-          "sala": {
+          "media": {
             "type": "integer",
-            "description": "Número da sala"
+            "description": "Media do aluno"
           }
         }
       }
