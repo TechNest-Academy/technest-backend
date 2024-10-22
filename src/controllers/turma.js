@@ -4,7 +4,7 @@ const prisma = new PrismaClient();
 const listarTurmas = async (req, res) => {
   try {
     const todasTurmas = await prisma.turma.findMany({
-      include: { alunos: true } // Inclui os alunos da turma na resposta
+      include: { alunos: false } // não lista os alunos da turma na resposta
     });
     return res.status(200).json(todasTurmas);
   } catch (error) {
@@ -18,9 +18,9 @@ const detalharTurma = async (req, res) => {
     const { id } = req.params;
     const turma = await prisma.turma.findUnique({
       where: { id: Number(id) },
-      include: { alunos: true } // Inclui os alunos da turma na resposta
+      include: { alunos: true } // lista os alunos da turma na resposta
     });
-    if (!turma) return res.status(404).json({ mensagem: "ID da turma não encontrado" });
+    if (!turma) return res.status(400).json({ mensagem: "ID da turma não encontrado" });
     return res.status(200).json(turma);
   } catch (error) {
     console.error(error);
@@ -63,7 +63,7 @@ const atualizarTurma = async (req, res) => {
   } catch (error) {
     console.error(error);
     if (error.code === 'P2025') {
-      return res.status(404).json({ mensagem: "ID da turma não encontrado" });
+      return res.status(400).json({ mensagem: "ID da turma não encontrado" });
     }
     return res.status(500).json({ mensagem: "Erro interno de servidor" });
   }
@@ -80,7 +80,7 @@ const deletarTurma = async (req, res) => {
   } catch (error) {
     console.error(error);
     if (error.code === 'P2025') {
-      return res.status(404).json({ mensagem: "ID da turma não encontrado" });
+      return res.status(400).json({ mensagem: "ID da turma não encontrado" });
     }
     return res.status(500).json({ mensagem: "Erro interno de servidor" });
   }
