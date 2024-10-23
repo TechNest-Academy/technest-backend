@@ -63,6 +63,20 @@ const emailValidoParaCadastro = async (req, res, next) => {
   }
 };
 
+const emailCadastroFuncionario = async (req, res, next) => {
+  try {
+    const { email } = req.body;
+    const emailExistente = await prisma.funcionario.findUnique({
+      where: { email },
+    });
+    if (emailExistente) return res.status(400).json({ mensagem: 'Email já existente.' });
+    next();
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ mensagem: "Erro interno." });
+  }
+};
+
 const emailValidoParaAtualizacao = async (req, res, next) => {
   try {
     const { id } = req.params;
@@ -81,10 +95,59 @@ const emailValidoParaAtualizacao = async (req, res, next) => {
   }
 };
 
+const emailValidoAtualizacaoFuncionario = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const { email } = req.body;
+    const emailExistente = await prisma.funcionario.findFirst({
+      where: {
+        email,
+        id: { not: Number(id) },
+      },
+    });
+    if (emailExistente) return res.status(400).json({ mensagem: 'Email já existente.' });
+    next();
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ mensagem: "Erro interno." });
+  }
+};
+
+const campoFuncionarios = async (req, res, next) => {
+
+  try {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const { nome,  email, senha, cargo } = req.body;
+    
+    if (!nome || !email || !senha || !cargo ) {
+      return res.status(400).json({ mensagem: "Todos os campos devem ser preenchidos." });
+    }
+
+    if (nome.length < 3) {
+      return res.status(400).json({ mensagem: "Nome deve ter pelo menos 3 letras." });
+    }
+
+    if (senha.length < 6) {
+      return res.status(400).json({ mensagem: "Senha deve ter pelo menos 6 letras." });
+    }
+    
+    if (!emailRegex.test(email)) {
+      return res.status(400).json({ mensagem: "Email inválido." });
+    }
+
+    next();
+  } catch (error) {
+    return res.status(500).json({ mensagem: "Erro interno de servidor." });
+  }
+}
+
 module.exports = {
   validarCampos,
   idValido,
   listaVazia,
   emailValidoParaCadastro,
-  emailValidoParaAtualizacao
+  emailValidoParaAtualizacao,
+  emailCadastroFuncionario,
+  emailValidoAtualizacaoFuncionario,
+  campoFuncionarios
 };

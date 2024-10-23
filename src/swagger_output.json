@@ -1,58 +1,51 @@
 {
-  "openapi": "3.0.0",
+  "swagger": "2.0",
   "info": {
+    "title": "API de Gerenciamento",
+    "description": "Documentação da API para Gerenciamento de Alunos, Turmas e Funcionários",
     "version": "1.0.0",
-    "title": "REST API",
-    "description": "API para gerenciar alunos e turmas",
     "contact": {
       "name": "Felipe Macedo",
       "email": "felipe@example.com",
       "url": "https://github.com/FelipeAJdev"
     }
   },
-  "servers": [
+  "host": "localhost:3000",
+  "basePath": "/",
+  "schemes": ["http", "https"],
+  "tags": [
     {
-      "url": "http://localhost:3000",
-      "description": "Servidor de Desenvolvimento"
+      "name": "Alunos",
+      "description": "Rotas relacionadas ao gerenciamento de alunos"
+    },
+    {
+      "name": "Turmas",
+      "description": "Rotas relacionadas ao gerenciamento de turmas"
+    },
+    {
+      "name": "Funcionários",
+      "description": "Rotas relacionadas ao gerenciamento de funcionários"
     }
   ],
   "paths": {
     "/aluno/cadastrar": {
       "post": {
         "summary": "Cadastrar um aluno",
-        "description": "Essa rota é responsável por cadastrar um novo aluno.",
-        "tags": ["Aluno"],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/Aluno"
-              },
-              "examples": {
-                "aluno": {
-                  "value": {
-                    "nome": "João",
-                    "idade": 20,
-                    "email": "joao@example.com",
-                    "notaprimeiromodulo": 8.0,
-                    "notasegundomodulo": 7.5,
-                    "turmaId": 1
-                  }
-                }
-              }
+        "description": "Essa rota cadastra um novo aluno.",
+        "tags": ["Alunos"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Dados do aluno a ser cadastrado",
+            "schema": {
+              "$ref": "#/definitions/Aluno"
             }
           }
-        },
+        ],
         "responses": {
           "201": {
-            "description": "Aluno cadastrado com sucesso",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Aluno"
-                }
-              }
-            }
+            "description": "Aluno cadastrado com sucesso"
           },
           "400": {
             "description": "Erro na requisição. Verifique os dados enviados."
@@ -65,20 +58,15 @@
     },
     "/aluno/listar": {
       "get": {
-        "summary": "Listar alunos",
-        "description": "Essa rota é responsável por listar todos os alunos cadastrados.",
-        "tags": ["Aluno"],
+        "summary": "Listar todos os alunos",
+        "tags": ["Alunos"],
         "responses": {
           "200": {
             "description": "Lista de alunos retornada com sucesso",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Aluno"
-                  }
-                }
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Aluno"
               }
             }
           },
@@ -91,32 +79,22 @@
     "/aluno/detalhar/{id}": {
       "get": {
         "summary": "Detalhar um aluno",
-        "description": "Essa rota retorna os detalhes de um aluno específico pelo ID.",
-        "tags": ["Aluno"],
+        "tags": ["Alunos"],
         "parameters": [
           {
-            "name": "id",
             "in": "path",
+            "name": "id",
             "required": true,
             "description": "ID do aluno",
-            "schema": {
-              "type": "integer"
-            }
+            "type": "integer"
           }
         ],
         "responses": {
           "200": {
             "description": "Aluno encontrado com sucesso",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Aluno"
-                }
-              }
+            "schema": {
+              "$ref": "#/definitions/Aluno"
             }
-          },
-          "400": {
-            "description": "ID inválido"
           },
           "404": {
             "description": "Aluno não encontrado"
@@ -129,53 +107,28 @@
     },
     "/aluno/atualizar/{id}": {
       "put": {
-        "summary": "Atualizar um aluno",
-        "description": "Essa rota é responsável por atualizar os dados de um aluno pelo ID.",
-        "tags": ["Aluno"],
+        "summary": "Atualizar dados de um aluno",
+        "tags": ["Alunos"],
         "parameters": [
           {
-            "name": "id",
             "in": "path",
+            "name": "id",
             "required": true,
             "description": "ID do aluno",
+            "type": "integer"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Dados atualizados do aluno",
             "schema": {
-              "type": "integer"
+              "$ref": "#/definitions/Aluno"
             }
           }
         ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/Aluno"
-              },
-              "examples": {
-                "aluno": {
-                  "value": {
-                    "nome": "Maria",
-                    "idade": 22,
-                    "email": "maria@example.com",
-                    "notaprimeiromodulo": 9.0,
-                    "notasegundomodulo": 8.5
-                  }
-                }
-              }
-            }
-          }
-        },
         "responses": {
           "200": {
-            "description": "Aluno atualizado com sucesso",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Aluno"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Dados inválidos ou incompletos"
+            "description": "Aluno atualizado com sucesso"
           },
           "404": {
             "description": "Aluno não encontrado"
@@ -189,25 +142,19 @@
     "/aluno/excluir/{id}": {
       "delete": {
         "summary": "Excluir um aluno",
-        "description": "Essa rota exclui um aluno pelo ID.",
-        "tags": ["Aluno"],
+        "tags": ["Alunos"],
         "parameters": [
           {
-            "name": "id",
             "in": "path",
+            "name": "id",
             "required": true,
             "description": "ID do aluno",
-            "schema": {
-              "type": "integer"
-            }
+            "type": "integer"
           }
         ],
         "responses": {
           "204": {
             "description": "Aluno excluído com sucesso"
-          },
-          "400": {
-            "description": "ID inválido"
           },
           "404": {
             "description": "Aluno não encontrado"
@@ -220,20 +167,15 @@
     },
     "/turma": {
       "get": {
-        "summary": "Listar turmas",
-        "description": "Essa rota retorna todas as turmas cadastradas.",
-        "tags": ["Turma"],
+        "summary": "Listar todas as turmas",
+        "tags": ["Turmas"],
         "responses": {
           "200": {
             "description": "Lista de turmas retornada com sucesso",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Turma"
-                  }
-                }
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Turma"
               }
             }
           },
@@ -244,38 +186,20 @@
       },
       "post": {
         "summary": "Cadastrar uma turma",
-        "description": "Essa rota é responsável por cadastrar uma nova turma.",
-        "tags": ["Turma"],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/Turma"
-              },
-              "examples": {
-                "turma": {
-                  "value": {
-                    "nome": "Turma A",
-                    "instrutor": "Professor A"
-                  }
-                }
-              }
+        "tags": ["Turmas"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Dados da turma a ser cadastrada",
+            "schema": {
+              "$ref": "#/definitions/Turma"
             }
           }
-        },
+        ],
         "responses": {
           "201": {
-            "description": "Turma cadastrada com sucesso",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Turma"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Dados inválidos ou incompletos"
+            "description": "Turma cadastrada com sucesso"
           },
           "500": {
             "description": "Erro interno no servidor"
@@ -286,32 +210,22 @@
     "/turma/{id}": {
       "get": {
         "summary": "Detalhar uma turma",
-        "description": "Essa rota retorna os detalhes de uma turma pelo ID.",
-        "tags": ["Turma"],
+        "tags": ["Turmas"],
         "parameters": [
           {
-            "name": "id",
             "in": "path",
+            "name": "id",
             "required": true,
             "description": "ID da turma",
-            "schema": {
-              "type": "integer"
-            }
+            "type": "integer"
           }
         ],
         "responses": {
           "200": {
             "description": "Turma encontrada com sucesso",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Turma"
-                }
-              }
+            "schema": {
+              "$ref": "#/definitions/Turma"
             }
-          },
-          "400": {
-            "description": "ID inválido"
           },
           "404": {
             "description": "Turma não encontrada"
@@ -323,49 +237,27 @@
       },
       "put": {
         "summary": "Atualizar uma turma",
-        "description": "Essa rota atualiza as informações de uma turma pelo ID.",
-        "tags": ["Turma"],
+        "tags": ["Turmas"],
         "parameters": [
           {
-            "name": "id",
             "in": "path",
+            "name": "id",
             "required": true,
             "description": "ID da turma",
+            "type": "integer"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Dados atualizados da turma",
             "schema": {
-              "type": "integer"
+              "$ref": "#/definitions/Turma"
             }
           }
         ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/Turma"
-              },
-              "examples": {
-                "turma": {
-                  "value": {
-                    "nome": "Turma B",
-                    "instrutor": "Professor B"
-                  }
-                }
-              }
-            }
-          }
-        },
         "responses": {
           "200": {
-            "description": "Turma atualizada com sucesso",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Turma"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Dados inválidos ou incompletos"
+            "description": "Turma atualizada com sucesso"
           },
           "404": {
             "description": "Turma não encontrada"
@@ -377,25 +269,19 @@
       },
       "delete": {
         "summary": "Excluir uma turma",
-        "description": "Essa rota exclui uma turma pelo ID.",
-        "tags": ["Turma"],
+        "tags": ["Turmas"],
         "parameters": [
           {
-            "name": "id",
             "in": "path",
+            "name": "id",
             "required": true,
             "description": "ID da turma",
-            "schema": {
-              "type": "integer"
-            }
+            "type": "integer"
           }
         ],
         "responses": {
           "204": {
             "description": "Turma excluída com sucesso"
-          },
-          "400": {
-            "description": "ID inválido"
           },
           "404": {
             "description": "Turma não encontrada"
@@ -406,44 +292,26 @@
         }
       }
     },
-    "/turma/adicionar-aluno": {
+    "/funcionario/": {
       "post": {
-        "summary": "Adicionar um aluno à turma",
-        "description": "Essa rota adiciona um aluno a uma turma existente.",
-        "tags": ["Turma"],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "turmaId": {
-                    "type": "integer",
-                    "description": "ID da turma"
-                  },
-                  "alunoId": {
-                    "type": "integer",
-                    "description": "ID do aluno"
-                  }
-                }
-              },
-              "examples": {
-                "adicionarAluno": {
-                  "value": {
-                    "turmaId": 1,
-                    "alunoId": 2
-                  }
-                }
-              }
+        "summary": "Cadastrar um funcionário",
+        "tags": ["Funcionários"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Dados do funcionário a ser cadastrado",
+            "schema": {
+              "$ref": "#/definitions/Funcionario"
             }
           }
-        },
+        ],
         "responses": {
-          "200": {
-            "description": "Aluno adicionado à turma com sucesso"
+          "201": {
+            "description": "Funcionário cadastrado com sucesso"
           },
           "400": {
-            "description": "Dados inválidos ou incompletos"
+            "description": "Erro na requisição. Verifique os dados enviados."
           },
           "500": {
             "description": "Erro interno no servidor"
@@ -451,39 +319,108 @@
         }
       }
     },
-    "/turma/remover-aluno": {
-      "post": {
-        "summary": "Remover um aluno da turma",
-        "description": "Essa rota remove um aluno de uma turma existente.",
-        "tags": ["Turma"],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "alunoId": {
-                    "type": "integer",
-                    "description": "ID do aluno"
-                  }
-                }
-              },
-              "examples": {
-                "removerAluno": {
-                  "value": {
-                    "alunoId": 2
-                  }
-                }
-              }
-            }
-          }
-        },
+    "/funcionario/listar": {
+      "get": {
+        "summary": "Listar todos os funcionários",
+        "tags": ["Funcionários"],
         "responses": {
           "200": {
-            "description": "Aluno removido da turma com sucesso"
+            "description": "Lista de funcionários retornada com sucesso",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Funcionario"
+              }
+            }
           },
-          "400": {
-            "description": "Dados inválidos ou incompletos"
+          "500": {
+            "description": "Erro interno no servidor"
+          }
+        }
+      }
+    },
+    "/funcionario/detalhar/{id}": {
+      "get": {
+        "summary": "Detalhar um funcionário",
+        "tags": ["Funcionários"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "description": "ID do funcionário",
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Funcionário encontrado com sucesso",
+            "schema": {
+              "$ref": "#/definitions/Funcionario"
+            }
+          },
+          "404": {
+            "description": "Funcionário não encontrado"
+          },
+          "500": {
+            "description": "Erro interno no servidor"
+          }
+        }
+      }
+    },
+    "/funcionario/atualizar/{id}": {
+      "put": {
+        "summary": "Atualizar dados de um funcionário",
+        "tags": ["Funcionários"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "description": "ID do funcionário",
+            "type": "integer"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Dados atualizados do funcionário",
+            "schema": {
+              "$ref": "#/definitions/Funcionario"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Funcionário atualizado com sucesso"
+          },
+          "404": {
+            "description": "Funcionário não encontrado"
+          },
+          "500": {
+            "description": "Erro interno no servidor"
+          }
+        }
+      }
+    },
+    "/funcionario/excluir/{id}": {
+      "delete": {
+        "summary": "Excluir um funcionário",
+        "tags": ["Funcionários"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "description": "ID do funcionário",
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Funcionário excluído com sucesso"
+          },
+          "404": {
+            "description": "Funcionário não encontrado"
           },
           "500": {
             "description": "Erro interno no servidor"
@@ -492,52 +429,82 @@
       }
     }
   },
-  "components": {
-    "schemas": {
-      "Aluno": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "integer",
-            "description": "ID do aluno"
-          },
-          "nome": {
-            "type": "string",
-            "description": "Nome do aluno"
-          },
-          "idade": {
-            "type": "integer",
-            "description": "Idade do aluno"
-          },
-          "email": {
-            "type": "string",
-            "description": "Email do aluno"
-          },
-          "notaprimeiromodulo": {
-            "type": "number",
-            "description": "Nota do primeiro módulo"
-          },
-          "notasegundomodulo": {
-            "type": "number",
-            "description": "Nota do segundo módulo"
-          }
+  "definitions": {
+    "Aluno": {
+      "type": "object",
+      "required": ["nome", "email", "idade", "turmaId"],
+      "properties": {
+        "id": {
+          "type": "integer",
+          "example": 1
+        },
+        "nome": {
+          "type": "string",
+          "example": "João da Silva"
+        },
+        "email": {
+          "type": "string",
+          "example": "joao@example.com"
+        },
+        "idade": {
+          "type": "integer",
+          "example": 20
+        },
+        "notaprimeiromodulo": {
+          "type": "number",
+          "example": 8.0
+        },
+        "notasegundomodulo": {
+          "type": "number",
+          "example": 7.5
+        },
+        "turmaId": {
+          "type": "integer",
+          "example": 1
         }
-      },
-      "Turma": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "integer",
-            "description": "ID da turma"
-          },
-          "nome": {
-            "type": "string",
-            "description": "Nome da turma"
-          },
-          "instrutor": {
-            "type": "string",
-            "description": "Nome do instrutor da turma"
-          }
+      }
+    },
+    "Turma": {
+      "type": "object",
+      "required": ["nome", "instrutor"],
+      "properties": {
+        "id": {
+          "type": "integer",
+          "example": 1
+        },
+        "nome": {
+          "type": "string",
+          "example": "Turma A"
+        },
+        "instrutor": {
+          "type": "string",
+          "example": "Instrutor X"
+        }
+      }
+    },
+    "Funcionario": {
+      "type": "object",
+      "required": ["nome", "email", "senha", "cargo"],
+      "properties": {
+        "id": {
+          "type": "integer",
+          "example": 1
+        },
+        "nome": {
+          "type": "string",
+          "example": "Maria da Silva"
+        },
+        "email": {
+          "type": "string",
+          "example": "maria@example.com"
+        },
+        "senha": {
+          "type": "string",
+          "example": "senha123"
+        },
+        "cargo": {
+          "type": "string",
+          "example": "Gerente"
         }
       }
     }
