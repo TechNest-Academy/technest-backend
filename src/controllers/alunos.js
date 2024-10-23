@@ -25,7 +25,7 @@ const detalharAluno = async (req, res) => {
 
 const cadastrarAluno = async (req, res) => {
   try {
-    const { nome, idade, email, notaprimeiromodulo, notasegundomodulo } = req.body;
+    const { nome, idade, email, notaprimeiromodulo, notasegundomodulo, turmaId } = req.body;
     const media = (notaprimeiromodulo + notasegundomodulo) / 2;
     
     const alunoCadastrado = await prisma.aluno.create({
@@ -36,6 +36,7 @@ const cadastrarAluno = async (req, res) => {
         notaPrimeiroModulo: notaprimeiromodulo,
         notaSegundoModulo: notasegundomodulo,
         media,
+        turmaId,
       },
     });
 
@@ -49,7 +50,7 @@ const cadastrarAluno = async (req, res) => {
 const atualizarAluno = async (req, res) => {
   try {
     const { id } = req.params;
-    const { nome, idade, email, notaprimeiromodulo, notasegundomodulo } = req.body;
+    const { nome, idade, email, notaprimeiromodulo, notasegundomodulo,turmaId } = req.body;
     const media = (notaprimeiromodulo + notasegundomodulo) / 2;
     
     const alunoAtualizado = await prisma.aluno.update({
@@ -61,6 +62,7 @@ const atualizarAluno = async (req, res) => {
         notaPrimeiroModulo: notaprimeiromodulo,
         notaSegundoModulo: notasegundomodulo,
         media,
+        turmaId,
       },
     });
 
