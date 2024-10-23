@@ -43,12 +43,12 @@ const listarFuncionario = async (req, res) => {
       const { id } = req.params
       const { nome, email,senha,cargo } = req.body
       const FuncionarioAtualizado = await prisma.funcionario.update({
-        where:{id:number(id) },
-        data:{
-            nome,
-            email,
-            senha,
-            cargo
+        where: { id: Number(id) },
+        data: {
+          nome,
+          email,
+          senha,
+          cargo
 
         } 
     })

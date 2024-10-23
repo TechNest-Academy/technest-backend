@@ -25,8 +25,8 @@ const {cadastrarFuncionario, listarFuncionario, detalharFuncionario, atualizarFu
 
 rotas.post("/funcionario/",campoFuncionarios, emailValidoParaCadastro, cadastrarFuncionario);
 rotas.get("/funcionario/listar",  listarFuncionario);
-rotas.get("/funcionario/detalhar:id", idValido, detalharFuncionario);
-rotas.put("/funcionario/atualizar:id", campoFuncionarios, idValido, emailValidoParaAtualizacao, atualizarFuncionario);
-rotas.delete("/funcionario/excluir:id", idValido, deletarFuncionario);
+rotas.get("/funcionario/detalhar/:id", idValido, detalharFuncionario);
+rotas.put("/funcionario/atualizar/:id", campoFuncionarios, idValido, emailValidoParaAtualizacao, atualizarFuncionario);
+rotas.delete("/funcionario/excluir/:id", idValido, deletarFuncionario);
 
 module.exports = rotas;
