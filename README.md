@@ -1,6 +1,15 @@
-# Projeto de API de Alunos
-
-Este projeto é uma API simples para gerenciar alunos. Ele permite cadastrar, listar, detalhar, atualizar e excluir informações de alunos. A API é desenvolvida utilizando Node.js, Express e PostgreSQL, com o uso de Knex.js como query builder.
+<div style="display: flex; justify-content: space-between; align-items: center;">
+  <!-- Div esquerda (Título e logo) -->
+  <div align="left">
+    <h1>
+      <a href="https://freeimage.host/i/2KsWCRR">
+        <img src="https://iili.io/2KsWCRR.md.png" alt="AWS Logo" width="70px"/>
+      </a>
+      Projeto API de Alunos
+    </h1>
+  </div>
+</div>
+Este projeto é uma API simples para gerenciar alunos e foi desenvolvido como atividade integradora. A API permite cadastrar, listar, detalhar, atualizar e excluir informações de alunos, professores e turmas. A API é desenvolvida utilizando Node.js, Express e PostgreSQL, com o uso de Knex.js como query builder.
 
 ## Tecnologias utilizadas
 
