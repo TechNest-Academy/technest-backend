@@ -63,11 +63,43 @@ const emailValidoParaCadastro = async (req, res, next) => {
   }
 };
 
+const emailCadastroFuncionario = async (req, res, next) => {
+  try {
+    const { email } = req.body;
+    const emailExistente = await prisma.funcionario.findUnique({
+      where: { email },
+    });
+    if (emailExistente) return res.status(400).json({ mensagem: 'Email já existente.' });
+    next();
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ mensagem: "Erro interno." });
+  }
+};
+
 const emailValidoParaAtualizacao = async (req, res, next) => {
   try {
     const { id } = req.params;
     const { email } = req.body;
     const emailExistente = await prisma.aluno.findFirst({
+      where: {
+        email,
+        id: { not: Number(id) },
+      },
+    });
+    if (emailExistente) return res.status(400).json({ mensagem: 'Email já existente.' });
+    next();
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ mensagem: "Erro interno." });
+  }
+};
+
+const emailValidoAtualizacaoFuncionario = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const { email } = req.body;
+    const emailExistente = await prisma.funcionario.findFirst({
       where: {
         email,
         id: { not: Number(id) },
@@ -115,5 +147,7 @@ module.exports = {
   listaVazia,
   emailValidoParaCadastro,
   emailValidoParaAtualizacao,
+  emailCadastroFuncionario,
+  emailValidoAtualizacaoFuncionario,
   campoFuncionarios
 };

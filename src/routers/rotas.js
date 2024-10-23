@@ -1,7 +1,7 @@
 const express = require('express');
 const rotas = express();
 
-const { campoFuncionarios,validarCampos, idValido, listaVazia, emailValidoParaCadastro, emailValidoParaAtualizacao } = require('../midware/intermediario');
+const { emailCadastroFuncionario, emailValidoAtualizacaoFuncionario,campoFuncionarios,validarCampos, idValido, listaVazia, emailValidoParaCadastro, emailValidoParaAtualizacao } = require('../midware/intermediario');
 const { cadastrarAluno, listarAlunos, detalharAluno, atualizarAluno, deletarAluno } = require("../controllers/alunos");
 
 rotas.post("/aluno/cadastrar", validarCampos, emailValidoParaCadastro, cadastrarAluno);
@@ -23,10 +23,10 @@ rotas.post("/turma/remover-aluno", removerAlunoDaTurma);
 
 const {cadastrarFuncionario, listarFuncionario, detalharFuncionario, atualizarFuncionario, deletarFuncionario } = require("../controllers/funcionario");
 
-rotas.post("/funcionario/",campoFuncionarios, emailValidoParaCadastro, cadastrarFuncionario);
+rotas.post("/funcionario/",campoFuncionarios, emailCadastroFuncionario, cadastrarFuncionario);
 rotas.get("/funcionario/listar",  listarFuncionario);
 rotas.get("/funcionario/detalhar/:id", idValido, detalharFuncionario);
-rotas.put("/funcionario/atualizar/:id", campoFuncionarios, idValido, emailValidoParaAtualizacao, atualizarFuncionario);
+rotas.put("/funcionario/atualizar/:id", campoFuncionarios, idValido, emailValidoAtualizacaoFuncionario, atualizarFuncionario);
 rotas.delete("/funcionario/excluir/:id", idValido, deletarFuncionario);
 
 module.exports = rotas;
