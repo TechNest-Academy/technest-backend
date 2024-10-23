@@ -81,10 +81,39 @@ const emailValidoParaAtualizacao = async (req, res, next) => {
   }
 };
 
+const campoFuncionarios = async (req, res, next) => {
+
+  try {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const { nome,  email, senha, cargo } = req.body;
+    
+    if (!nome || !email || !senha || !cargo ) {
+      return res.status(400).json({ mensagem: "Todos os campos devem ser preenchidos." });
+    }
+
+    if (nome.length < 3) {
+      return res.status(400).json({ mensagem: "Nome deve ter pelo menos 3 letras." });
+    }
+
+    if (senha.length < 6) {
+      return res.status(400).json({ mensagem: "Senha deve ter pelo menos 6 letras." });
+    }
+    
+    if (!emailRegex.test(email)) {
+      return res.status(400).json({ mensagem: "Email inválido." });
+    }
+
+    next();
+  } catch (error) {
+    return res.status(500).json({ mensagem: "Erro interno de servidor." });
+  }
+}
+
 module.exports = {
   validarCampos,
   idValido,
   listaVazia,
   emailValidoParaCadastro,
-  emailValidoParaAtualizacao
+  emailValidoParaAtualizacao,
+  campoFuncionarios
 };
