@@ -14,5 +14,5 @@ app.use(cors());
 app.use(rotas);
 
 app.listen(port,() => {
-  console.log(`Rodando na url: http://localhost:${port}`);
+  console.log(`Rodando na url: http://localhost:${port}/api-docs`);
 });
