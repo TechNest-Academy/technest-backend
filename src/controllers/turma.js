@@ -4,7 +4,9 @@ const prisma = new PrismaClient();
 const listarTurmas = async (req, res) => {
   try {
     const todasTurmas = await prisma.turma.findMany({
-      include: { alunos: false } // não lista os alunos da turma na resposta
+      include: {
+        alunos: false,
+      },
     });
     return res.status(200).json(todasTurmas);
   } catch (error) {
@@ -18,7 +20,7 @@ const detalharTurma = async (req, res) => {
     const { id } = req.params;
     const turma = await prisma.turma.findUnique({
       where: { id: Number(id) },
-      include: { alunos: true } // lista os alunos da turma na resposta
+      include: { alunos: true },
     });
     if (!turma) return res.status(400).json({ mensagem: "ID da turma não encontrado" });
     return res.status(200).json(turma);
@@ -35,8 +37,8 @@ const cadastrarTurma = async (req, res) => {
     const turmaCadastrada = await prisma.turma.create({
       data: {
         nome,
-        instrutor
-      }
+        instrutor,
+      },
     });
 
     return res.status(201).json({ mensagem: "Turma cadastrada com sucesso!", Turma: turmaCadastrada });
@@ -55,8 +57,8 @@ const atualizarTurma = async (req, res) => {
       where: { id: Number(id) },
       data: {
         nome,
-        instrutor
-      }
+        instrutor,
+      },
     });
 
     return res.status(200).json({ mensagem: "Turma atualizada com sucesso", Turma: turmaAtualizada });
@@ -73,7 +75,7 @@ const deletarTurma = async (req, res) => {
   try {
     const { id } = req.params;
     await prisma.turma.delete({
-      where: { id: Number(id) }
+      where: { id: Number(id) },
     });
 
     return res.status(204).json();
@@ -86,10 +88,44 @@ const deletarTurma = async (req, res) => {
   }
 };
 
+const adicionarAlunoATurma = async (req, res) => {
+  try {
+    const { turmaId, alunoId } = req.body;
+
+    const alunoAtualizado = await prisma.aluno.update({
+      where: { id: Number(alunoId) },
+      data: { turmaId: Number(turmaId) },
+    });
+
+    return res.status(200).json({ mensagem: "Aluno adicionado à turma com sucesso", aluno: alunoAtualizado });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ mensagem: "Erro ao adicionar aluno à turma" });
+  }
+};
+
+const removerAlunoDaTurma = async (req, res) => {
+  try {
+    const { alunoId } = req.body;
+
+    const alunoAtualizado = await prisma.aluno.update({
+      where: { id: Number(alunoId) },
+      data: { turmaId: null }, // Remove o aluno da turma
+    });
+
+    return res.status(200).json({ mensagem: "Aluno removido da turma com sucesso", aluno: alunoAtualizado });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ mensagem: "Erro ao remover aluno da turma" });
+  }
+};
+
 module.exports = {
   listarTurmas,
   detalharTurma,
   cadastrarTurma,
   atualizarTurma,
-  deletarTurma
+  deletarTurma,
+  adicionarAlunoATurma,
+  removerAlunoDaTurma,
 };
