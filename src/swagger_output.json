@@ -1,0 +1,512 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "API de Gerenciamento",
+    "description": "Documentação da API para Gerenciamento de Alunos, Turmas e Funcionários",
+    "version": "1.0.0",
+    "contact": {
+      "name": "Felipe Macedo",
+      "email": "felipe@example.com",
+      "url": "https://github.com/FelipeAJdev"
+    }
+  },
+  "host": "localhost:3000",
+  "basePath": "/",
+  "schemes": ["http", "https"],
+  "tags": [
+    {
+      "name": "Alunos",
+      "description": "Rotas relacionadas ao gerenciamento de alunos"
+    },
+    {
+      "name": "Turmas",
+      "description": "Rotas relacionadas ao gerenciamento de turmas"
+    },
+    {
+      "name": "Funcionários",
+      "description": "Rotas relacionadas ao gerenciamento de funcionários"
+    }
+  ],
+  "paths": {
+    "/aluno/cadastrar": {
+      "post": {
+        "summary": "Cadastrar um aluno",
+        "description": "Essa rota cadastra um novo aluno.",
+        "tags": ["Alunos"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Dados do aluno a ser cadastrado",
+            "schema": {
+              "$ref": "#/definitions/Aluno"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Aluno cadastrado com sucesso"
+          },
+          "400": {
+            "description": "Erro na requisição. Verifique os dados enviados."
+          },
+          "500": {
+            "description": "Erro interno no servidor"
+          }
+        }
+      }
+    },
+    "/aluno/listar": {
+      "get": {
+        "summary": "Listar todos os alunos",
+        "tags": ["Alunos"],
+        "responses": {
+          "200": {
+            "description": "Lista de alunos retornada com sucesso",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Aluno"
+              }
+            }
+          },
+          "500": {
+            "description": "Erro interno no servidor"
+          }
+        }
+      }
+    },
+    "/aluno/detalhar/{id}": {
+      "get": {
+        "summary": "Detalhar um aluno",
+        "tags": ["Alunos"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "description": "ID do aluno",
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Aluno encontrado com sucesso",
+            "schema": {
+              "$ref": "#/definitions/Aluno"
+            }
+          },
+          "404": {
+            "description": "Aluno não encontrado"
+          },
+          "500": {
+            "description": "Erro interno no servidor"
+          }
+        }
+      }
+    },
+    "/aluno/atualizar/{id}": {
+      "put": {
+        "summary": "Atualizar dados de um aluno",
+        "tags": ["Alunos"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "description": "ID do aluno",
+            "type": "integer"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Dados atualizados do aluno",
+            "schema": {
+              "$ref": "#/definitions/Aluno"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Aluno atualizado com sucesso"
+          },
+          "404": {
+            "description": "Aluno não encontrado"
+          },
+          "500": {
+            "description": "Erro interno no servidor"
+          }
+        }
+      }
+    },
+    "/aluno/excluir/{id}": {
+      "delete": {
+        "summary": "Excluir um aluno",
+        "tags": ["Alunos"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "description": "ID do aluno",
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Aluno excluído com sucesso"
+          },
+          "404": {
+            "description": "Aluno não encontrado"
+          },
+          "500": {
+            "description": "Erro interno no servidor"
+          }
+        }
+      }
+    },
+    "/turma": {
+      "get": {
+        "summary": "Listar todas as turmas",
+        "tags": ["Turmas"],
+        "responses": {
+          "200": {
+            "description": "Lista de turmas retornada com sucesso",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Turma"
+              }
+            }
+          },
+          "500": {
+            "description": "Erro interno no servidor"
+          }
+        }
+      },
+      "post": {
+        "summary": "Cadastrar uma turma",
+        "tags": ["Turmas"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Dados da turma a ser cadastrada",
+            "schema": {
+              "$ref": "#/definitions/Turma"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Turma cadastrada com sucesso"
+          },
+          "500": {
+            "description": "Erro interno no servidor"
+          }
+        }
+      }
+    },
+    "/turma/{id}": {
+      "get": {
+        "summary": "Detalhar uma turma",
+        "tags": ["Turmas"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "description": "ID da turma",
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Turma encontrada com sucesso",
+            "schema": {
+              "$ref": "#/definitions/Turma"
+            }
+          },
+          "404": {
+            "description": "Turma não encontrada"
+          },
+          "500": {
+            "description": "Erro interno no servidor"
+          }
+        }
+      },
+      "put": {
+        "summary": "Atualizar uma turma",
+        "tags": ["Turmas"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "description": "ID da turma",
+            "type": "integer"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Dados atualizados da turma",
+            "schema": {
+              "$ref": "#/definitions/Turma"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Turma atualizada com sucesso"
+          },
+          "404": {
+            "description": "Turma não encontrada"
+          },
+          "500": {
+            "description": "Erro interno no servidor"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Excluir uma turma",
+        "tags": ["Turmas"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "description": "ID da turma",
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Turma excluída com sucesso"
+          },
+          "404": {
+            "description": "Turma não encontrada"
+          },
+          "500": {
+            "description": "Erro interno no servidor"
+          }
+        }
+      }
+    },
+    "/funcionario/": {
+      "post": {
+        "summary": "Cadastrar um funcionário",
+        "tags": ["Funcionários"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Dados do funcionário a ser cadastrado",
+            "schema": {
+              "$ref": "#/definitions/Funcionario"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Funcionário cadastrado com sucesso"
+          },
+          "400": {
+            "description": "Erro na requisição. Verifique os dados enviados."
+          },
+          "500": {
+            "description": "Erro interno no servidor"
+          }
+        }
+      }
+    },
+    "/funcionario/listar": {
+      "get": {
+        "summary": "Listar todos os funcionários",
+        "tags": ["Funcionários"],
+        "responses": {
+          "200": {
+            "description": "Lista de funcionários retornada com sucesso",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Funcionario"
+              }
+            }
+          },
+          "500": {
+            "description": "Erro interno no servidor"
+          }
+        }
+      }
+    },
+    "/funcionario/detalhar/{id}": {
+      "get": {
+        "summary": "Detalhar um funcionário",
+        "tags": ["Funcionários"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "description": "ID do funcionário",
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Funcionário encontrado com sucesso",
+            "schema": {
+              "$ref": "#/definitions/Funcionario"
+            }
+          },
+          "404": {
+            "description": "Funcionário não encontrado"
+          },
+          "500": {
+            "description": "Erro interno no servidor"
+          }
+        }
+      }
+    },
+    "/funcionario/atualizar/{id}": {
+      "put": {
+        "summary": "Atualizar dados de um funcionário",
+        "tags": ["Funcionários"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "description": "ID do funcionário",
+            "type": "integer"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Dados atualizados do funcionário",
+            "schema": {
+              "$ref": "#/definitions/Funcionario"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Funcionário atualizado com sucesso"
+          },
+          "404": {
+            "description": "Funcionário não encontrado"
+          },
+          "500": {
+            "description": "Erro interno no servidor"
+          }
+        }
+      }
+    },
+    "/funcionario/excluir/{id}": {
+      "delete": {
+        "summary": "Excluir um funcionário",
+        "tags": ["Funcionários"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "description": "ID do funcionário",
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Funcionário excluído com sucesso"
+          },
+          "404": {
+            "description": "Funcionário não encontrado"
+          },
+          "500": {
+            "description": "Erro interno no servidor"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Aluno": {
+      "type": "object",
+      "required": ["nome", "email", "idade", "turmaId"],
+      "properties": {
+        "id": {
+          "type": "integer",
+          "example": 1
+        },
+        "nome": {
+          "type": "string",
+          "example": "João da Silva"
+        },
+        "email": {
+          "type": "string",
+          "example": "joao@example.com"
+        },
+        "idade": {
+          "type": "integer",
+          "example": 20
+        },
+        "notaprimeiromodulo": {
+          "type": "number",
+          "example": 8.0
+        },
+        "notasegundomodulo": {
+          "type": "number",
+          "example": 7.5
+        },
+        "turmaId": {
+          "type": "integer",
+          "example": 1
+        }
+      }
+    },
+    "Turma": {
+      "type": "object",
+      "required": ["nome", "instrutor"],
+      "properties": {
+        "id": {
+          "type": "integer",
+          "example": 1
+        },
+        "nome": {
+          "type": "string",
+          "example": "Turma A"
+        },
+        "instrutor": {
+          "type": "string",
+          "example": "Instrutor X"
+        }
+      }
+    },
+    "Funcionario": {
+      "type": "object",
+      "required": ["nome", "email", "senha", "cargo"],
+      "properties": {
+        "id": {
+          "type": "integer",
+          "example": 1
+        },
+        "nome": {
+          "type": "string",
+          "example": "Maria da Silva"
+        },
+        "email": {
+          "type": "string",
+          "example": "maria@example.com"
+        },
+        "senha": {
+          "type": "string",
+          "example": "senha123"
+        },
+        "cargo": {
+          "type": "string",
+          "example": "Gerente"
+        }
+      }
+    }
+  }
+}

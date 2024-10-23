@@ -1,4 +1,5 @@
-const knex = require('../database/conexao');
+const { PrismaClient } = require('@prisma/client');
+const prisma = new PrismaClient();
 
 const validarCampos = async (req, res, next) => {
   try {
@@ -15,17 +16,13 @@ const validarCampos = async (req, res, next) => {
 
     if (idade <= 0) {
       return res.status(400).json({ mensagem: "Idade deve ser um valor positivo." });
-    }
-
-    if (nome.length < 3) {
+    }if (nome.length < 3) {
       return res.status(400).json({ mensagem: "Nome deve ter pelo menos 3 letras." });
     }
 
     if (!emailRegex.test(email)) {
       return res.status(400).json({ mensagem: "Email inválido." });
-    }
-
-    next();
+    }next();
   } catch (error) {
     console.log(error);
     return res.status(500).json({ mensagem: "Erro interno de servidor." });
@@ -40,42 +37,107 @@ const idValido = async (req, res, next) => {
   } catch (error) {
     return res.status(500).json({ mensagem: "Erro interno." });
   }
-}
+};
 
 const listaVazia = async (req, res, next) => {
   try {
-    const todosAlunos = await knex("alunos").select("*");
+    const todosAlunos = await prisma.aluno.findMany();
     if (todosAlunos.length === 0) return res.status(200).json("Lista vazia");
     next();
   } catch (error) {
-    console.log(error);
-    return res.status(500).json({ mensagem: "erro interno." });
+    return res.status(500).json({ mensagem: "Erro interno." });
   }
-}
+};
 
 const emailValidoParaCadastro = async (req, res, next) => {
   try {
     const { email } = req.body;
-    const emailExistente = await knex("alunos").where( "email", email).first();
-    if (emailExistente) return res.status(400).json({ mensagem: 'Email ja existente.' });
+    const emailExistente = await prisma.aluno.findUnique({
+      where: { email },
+    });
+    if (emailExistente) return res.status(400).json({ mensagem: 'Email já existente.' });
     next();
   } catch (error) {
     console.log(error);
-    
-    return res.status(500).json({ mensagem: "erro interno." });
+    return res.status(500).json({ mensagem: "Erro interno." });
   }
-}
+};
+
+const emailCadastroFuncionario = async (req, res, next) => {
+  try {
+    const { email } = req.body;
+    const emailExistente = await prisma.funcionario.findUnique({
+      where: { email },
+    });
+    if (emailExistente) return res.status(400).json({ mensagem: 'Email já existente.' });
+    next();
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ mensagem: "Erro interno." });
+  }
+};
+
 const emailValidoParaAtualizacao = async (req, res, next) => {
   try {
     const { id } = req.params;
     const { email } = req.body;
-    const emailExistente = await knex("alunos").where( "email", email).andWhere("id", "!=", id).first();
-    if (emailExistente) return res.status(400).json({ mensagem: 'Email ja existente.' });
+    const emailExistente = await prisma.aluno.findFirst({
+      where: {
+        email,
+        id: { not: Number(id) },
+      },
+    });
+    if (emailExistente) return res.status(400).json({ mensagem: 'Email já existente.' });
     next();
   } catch (error) {
     console.log(error);
+    return res.status(500).json({ mensagem: "Erro interno." });
+  }
+};
+
+const emailValidoAtualizacaoFuncionario = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const { email } = req.body;
+    const emailExistente = await prisma.funcionario.findFirst({
+      where: {
+        email,
+        id: { not: Number(id) },
+      },
+    });
+    if (emailExistente) return res.status(400).json({ mensagem: 'Email já existente.' });
+    next();
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ mensagem: "Erro interno." });
+  }
+};
+
+const campoFuncionarios = async (req, res, next) => {
+
+  try {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const { nome,  email, senha, cargo } = req.body;
     
-    return res.status(500).json({ mensagem: "erro interno." });
+    if (!nome || !email || !senha || !cargo ) {
+      return res.status(400).json({ mensagem: "Todos os campos devem ser preenchidos." });
+    }
+
+    if (nome.length < 3) {
+      return res.status(400).json({ mensagem: "Nome deve ter pelo menos 3 letras." });
+    }
+
+    if (senha.length < 6) {
+      return res.status(400).json({ mensagem: "Senha deve ter pelo menos 6 letras." });
+    }
+    
+    if (!emailRegex.test(email)) {
+      return res.status(400).json({ mensagem: "Email inválido." });
+    }
+
+    next();
+  } catch (error) {
+    return res.status(500).json({ mensagem: "Erro interno de servidor." });
   }
 }
 
@@ -84,5 +146,8 @@ module.exports = {
   idValido,
   listaVazia,
   emailValidoParaCadastro,
-  emailValidoParaAtualizacao
+  emailValidoParaAtualizacao,
+  emailCadastroFuncionario,
+  emailValidoAtualizacaoFuncionario,
+  campoFuncionarios
 };
