@@ -1,0 +1,545 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "REST API",
+    "description": "API para gerenciar alunos e turmas",
+    "contact": {
+      "name": "Felipe Macedo",
+      "email": "felipe@example.com",
+      "url": "https://github.com/FelipeAJdev"
+    }
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000",
+      "description": "Servidor de Desenvolvimento"
+    }
+  ],
+  "paths": {
+    "/aluno/cadastrar": {
+      "post": {
+        "summary": "Cadastrar um aluno",
+        "description": "Essa rota é responsável por cadastrar um novo aluno.",
+        "tags": ["Aluno"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Aluno"
+              },
+              "examples": {
+                "aluno": {
+                  "value": {
+                    "nome": "João",
+                    "idade": 20,
+                    "email": "joao@example.com",
+                    "notaprimeiromodulo": 8.0,
+                    "notasegundomodulo": 7.5,
+                    "turmaId": 1
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Aluno cadastrado com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Aluno"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Erro na requisição. Verifique os dados enviados."
+          },
+          "500": {
+            "description": "Erro interno no servidor"
+          }
+        }
+      }
+    },
+    "/aluno/listar": {
+      "get": {
+        "summary": "Listar alunos",
+        "description": "Essa rota é responsável por listar todos os alunos cadastrados.",
+        "tags": ["Aluno"],
+        "responses": {
+          "200": {
+            "description": "Lista de alunos retornada com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Aluno"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Erro interno no servidor"
+          }
+        }
+      }
+    },
+    "/aluno/detalhar/{id}": {
+      "get": {
+        "summary": "Detalhar um aluno",
+        "description": "Essa rota retorna os detalhes de um aluno específico pelo ID.",
+        "tags": ["Aluno"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "ID do aluno",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Aluno encontrado com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Aluno"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "ID inválido"
+          },
+          "404": {
+            "description": "Aluno não encontrado"
+          },
+          "500": {
+            "description": "Erro interno no servidor"
+          }
+        }
+      }
+    },
+    "/aluno/atualizar/{id}": {
+      "put": {
+        "summary": "Atualizar um aluno",
+        "description": "Essa rota é responsável por atualizar os dados de um aluno pelo ID.",
+        "tags": ["Aluno"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "ID do aluno",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Aluno"
+              },
+              "examples": {
+                "aluno": {
+                  "value": {
+                    "nome": "Maria",
+                    "idade": 22,
+                    "email": "maria@example.com",
+                    "notaprimeiromodulo": 9.0,
+                    "notasegundomodulo": 8.5
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Aluno atualizado com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Aluno"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Dados inválidos ou incompletos"
+          },
+          "404": {
+            "description": "Aluno não encontrado"
+          },
+          "500": {
+            "description": "Erro interno no servidor"
+          }
+        }
+      }
+    },
+    "/aluno/excluir/{id}": {
+      "delete": {
+        "summary": "Excluir um aluno",
+        "description": "Essa rota exclui um aluno pelo ID.",
+        "tags": ["Aluno"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "ID do aluno",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Aluno excluído com sucesso"
+          },
+          "400": {
+            "description": "ID inválido"
+          },
+          "404": {
+            "description": "Aluno não encontrado"
+          },
+          "500": {
+            "description": "Erro interno no servidor"
+          }
+        }
+      }
+    },
+    "/turma": {
+      "get": {
+        "summary": "Listar turmas",
+        "description": "Essa rota retorna todas as turmas cadastradas.",
+        "tags": ["Turma"],
+        "responses": {
+          "200": {
+            "description": "Lista de turmas retornada com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Turma"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Erro interno no servidor"
+          }
+        }
+      },
+      "post": {
+        "summary": "Cadastrar uma turma",
+        "description": "Essa rota é responsável por cadastrar uma nova turma.",
+        "tags": ["Turma"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Turma"
+              },
+              "examples": {
+                "turma": {
+                  "value": {
+                    "nome": "Turma A",
+                    "instrutor": "Professor A"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Turma cadastrada com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Turma"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Dados inválidos ou incompletos"
+          },
+          "500": {
+            "description": "Erro interno no servidor"
+          }
+        }
+      }
+    },
+    "/turma/{id}": {
+      "get": {
+        "summary": "Detalhar uma turma",
+        "description": "Essa rota retorna os detalhes de uma turma pelo ID.",
+        "tags": ["Turma"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "ID da turma",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Turma encontrada com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Turma"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "ID inválido"
+          },
+          "404": {
+            "description": "Turma não encontrada"
+          },
+          "500": {
+            "description": "Erro interno no servidor"
+          }
+        }
+      },
+      "put": {
+        "summary": "Atualizar uma turma",
+        "description": "Essa rota atualiza as informações de uma turma pelo ID.",
+        "tags": ["Turma"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "ID da turma",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Turma"
+              },
+              "examples": {
+                "turma": {
+                  "value": {
+                    "nome": "Turma B",
+                    "instrutor": "Professor B"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Turma atualizada com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Turma"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Dados inválidos ou incompletos"
+          },
+          "404": {
+            "description": "Turma não encontrada"
+          },
+          "500": {
+            "description": "Erro interno no servidor"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Excluir uma turma",
+        "description": "Essa rota exclui uma turma pelo ID.",
+        "tags": ["Turma"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "ID da turma",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Turma excluída com sucesso"
+          },
+          "400": {
+            "description": "ID inválido"
+          },
+          "404": {
+            "description": "Turma não encontrada"
+          },
+          "500": {
+            "description": "Erro interno no servidor"
+          }
+        }
+      }
+    },
+    "/turma/adicionar-aluno": {
+      "post": {
+        "summary": "Adicionar um aluno à turma",
+        "description": "Essa rota adiciona um aluno a uma turma existente.",
+        "tags": ["Turma"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "turmaId": {
+                    "type": "integer",
+                    "description": "ID da turma"
+                  },
+                  "alunoId": {
+                    "type": "integer",
+                    "description": "ID do aluno"
+                  }
+                }
+              },
+              "examples": {
+                "adicionarAluno": {
+                  "value": {
+                    "turmaId": 1,
+                    "alunoId": 2
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Aluno adicionado à turma com sucesso"
+          },
+          "400": {
+            "description": "Dados inválidos ou incompletos"
+          },
+          "500": {
+            "description": "Erro interno no servidor"
+          }
+        }
+      }
+    },
+    "/turma/remover-aluno": {
+      "post": {
+        "summary": "Remover um aluno da turma",
+        "description": "Essa rota remove um aluno de uma turma existente.",
+        "tags": ["Turma"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "alunoId": {
+                    "type": "integer",
+                    "description": "ID do aluno"
+                  }
+                }
+              },
+              "examples": {
+                "removerAluno": {
+                  "value": {
+                    "alunoId": 2
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Aluno removido da turma com sucesso"
+          },
+          "400": {
+            "description": "Dados inválidos ou incompletos"
+          },
+          "500": {
+            "description": "Erro interno no servidor"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Aluno": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "ID do aluno"
+          },
+          "nome": {
+            "type": "string",
+            "description": "Nome do aluno"
+          },
+          "idade": {
+            "type": "integer",
+            "description": "Idade do aluno"
+          },
+          "email": {
+            "type": "string",
+            "description": "Email do aluno"
+          },
+          "notaprimeiromodulo": {
+            "type": "number",
+            "description": "Nota do primeiro módulo"
+          },
+          "notasegundomodulo": {
+            "type": "number",
+            "description": "Nota do segundo módulo"
+          }
+        }
+      },
+      "Turma": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "ID da turma"
+          },
+          "nome": {
+            "type": "string",
+            "description": "Nome da turma"
+          },
+          "instrutor": {
+            "type": "string",
+            "description": "Nome do instrutor da turma"
+          }
+        }
+      }
+    }
+  }
+}
