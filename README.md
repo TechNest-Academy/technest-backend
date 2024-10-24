@@ -50,6 +50,7 @@ Este projeto é uma API para gerenciar alunos, permitindo o cadastro, listagem, 
     ```env
     DATABASE_URL="postgresql://username:password@host:port/database_name"
     PORT=3000
+    SENHAJWT="useSenhaCriptografadaAqui"
     ```
 
 4. Certifique-se de que o PostgreSQL está em execução.
