@@ -27,7 +27,7 @@ Este projeto é uma API para gerenciar alunos, permitindo o cadastro, listagem, 
 
 ## Requisitos
 
-- Node.js (versão 14.x ou superior)
+- Node.js **v16.13** ou superior (compativel com prisma)
 - PostgreSQL em execução
 - Arquivo `.env` configurado corretamente
 
