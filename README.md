@@ -9,25 +9,27 @@
   </div>
 </div>
 
-Este projeto é uma API para gerenciar alunos, permitindo o cadastro, listagem, atualização e exclusão de informações. A API foi desenvolvida utilizando **Node.js**, **Express**, **Prisma** e **PostgreSQL**, com autenticação JWT e documentação via **Swagger**.
+Este projeto é uma API para gerenciar alunos, permitindo o cadastro, listagem, atualização e exclusão de informações. A API foi desenvolvida utilizando **Node.js**, **Express**, **Prisma** e **PostgreSQL**, com autenticação **JWT** e documentação via **Swagger**.
 
+## Deploy
+A API está disponível em produção no Render, e você pode acessar a documentação completa do Swagger e testar os endpoints por meio do seguinte link:
+ [Deploy da API - Swagger Docs](https://technest-backend-i33r.onrender.com/api-docs/)
 
 ## Tecnologias utilizadas
 
 - **Node.js**: Ambiente JavaScript do lado do servidor.
 - **Express**: Framework que facilita o desenvolvimento de rotas e APIs HTTP.
-- **PostgreSQL**: Banco de dados relacional pra persistir e gerenciar as informações da aplicação .
+- **PostgreSQL**: Banco de dados relacional pra persistir e gerenciar as informações da aplicação.
 - **Prisma**: ORM que simplifica as consultas no banco e migrações de dados.
 - **Swagger UI**: Ferramenta de documentação interativa pra APIs, onde dá pra testar as rotas direto no navegador.
-- **bcrypt**: Usado pra fazer o hash das senhas dos funcionarios.
+- **bcrypt**: Usado pra fazer o hash das senhas dos funcionários.
 - **jsonwebtoken**: Gera tokens JWT pra autenticação e controle de acesso na aplicação.
 - **dotenv**: Carrega variáveis de ambiente do arquivo `.env` pra configurar a aplicação de forma segura.
 - **cors**: Middleware que libera o compartilhamento de recursos entre origens diferentes (cross-origin), necessário pra permitir requisições de outros domínios.
 
-
 ## Requisitos
 
-- Node.js **v16.13** ou superior (compativel com prisma)
+- Node.js **v16.13** ou superior (compativel com Prisma)
 - PostgreSQL em execução
 - Arquivo `.env` configurado corretamente
 
@@ -72,7 +74,6 @@ Este projeto é uma API para gerenciar alunos, permitindo o cadastro, listagem, 
     ```
     http://localhost:3000/api-docs
     ```
-
 
 ## Desenvolvedores
 
