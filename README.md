@@ -1,5 +1,4 @@
 <div style="display: flex; justify-content: space-between; align-items: center;">
-  <!-- Div esquerda (Título e logo) -->
   <div align="left">
     <h1>
       <a href="https://freeimage.host/i/2KsWCRR">
@@ -10,19 +9,21 @@
   </div>
 </div>
 
-Este projeto é uma API para gerenciar alunos, permitindo o cadastro, listagem, atualização e exclusão de informações. A API foi desenvolvida utilizando **Node.js**, **Express** e **PostgreSQL**, com autenticação JWT e documentação via **Swagger**.
+Este projeto é uma API para gerenciar alunos, permitindo o cadastro, listagem, atualização e exclusão de informações. A API foi desenvolvida utilizando **Node.js**, **Express**, **Prisma** e **PostgreSQL**, com autenticação JWT e documentação via **Swagger**.
+
 
 ## Tecnologias utilizadas
 
-- **Node.js**
-- **Express**
-- **PostgreSQL**
-- **Prisma**
-- **Swagger UI**
-- **bcrypt**
-- **jsonwebtoken**
-- **dotenv**
-- **cors**
+- **Node.js**: Ambiente JavaScript do lado do servidor.
+- **Express**: Framework que facilita o desenvolvimento de rotas e APIs HTTP.
+- **PostgreSQL**: Banco de dados relacional pra persistir e gerenciar as informações da aplicação .
+- **Prisma**: ORM que simplifica as consultas no banco e migrações de dados.
+- **Swagger UI**: Ferramenta de documentação interativa pra APIs, onde dá pra testar as rotas direto no navegador.
+- **bcrypt**: Usado pra fazer o hash das senhas dos funcionarios.
+- **jsonwebtoken**: Gera tokens JWT pra autenticação e controle de acesso na aplicação.
+- **dotenv**: Carrega variáveis de ambiente do arquivo `.env` pra configurar a aplicação de forma segura.
+- **cors**: Middleware que libera o compartilhamento de recursos entre origens diferentes (cross-origin), necessário pra permitir requisições de outros domínios.
+
 
 ## Requisitos
 
@@ -77,4 +78,3 @@ Este projeto é uma API para gerenciar alunos, permitindo o cadastro, listagem, 
 - [Marcelo Costa](https://github.com/159753marcelo)
 - [Ewerton Bertoldo](https://github.com/EwertonRafael)
 - [Felipe Macedo](https://github.com/felipemacedo1)
-
