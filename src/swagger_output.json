@@ -9,9 +9,9 @@
       "url": "https://github.com/TechNest-Academy/technest-backend"
     }
   },
-  "host": "localhost:3000",
+  "host": "technest-backend-i33r.onrender.com",
   "basePath": "/",
-  "schemes": ["http", "https"],
+  "schemes": ["https", "http"],
   "securityDefinitions": {
     "bearerAuth": {
       "type": "apiKey",
