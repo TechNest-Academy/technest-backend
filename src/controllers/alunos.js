@@ -4,20 +4,20 @@ const prisma = new PrismaClient();
 const listarAlunos = async (req, res) => {
   try {
     const todosAlunos = await prisma.aluno.findMany({
-        select: {
-          id: true,
-          nome: true,
-          email: true,
-          idade: true,
-          notaPrimeiroModulo: true,
-          notaSegundoModulo: true,
-          media: true,
-          turmaId: true,
-        },
+      select: {
+        id: true,
+        nome: true,
+        email: true,
+        idade: true,
+        notaPrimeiroModulo: true,
+        notaSegundoModulo: true,
+        media: true,
+        turmaId: true,
+      },
       orderBy: {
         id: "asc",
       },
-  });
+    });
     return res.status(200).json(todosAlunos);
   } catch (error) {
     console.error(error);
@@ -41,6 +41,14 @@ const detalharAluno = async (req, res) => {
 const cadastrarAluno = async (req, res) => {
   try {
     const { nome, idade, email, notaprimeiromodulo, notasegundomodulo, turmaId } = req.body;
+    const turma = await prisma.turma.findUnique({
+      where: {
+        id: turmaId,
+      },
+    })
+    if(!turma) {
+      return res.status(400).json({ mensagem: "ID da turma não encontrado" });
+    }
     const media = (notaprimeiromodulo + notasegundomodulo) / 2;
     const alunoCadastrado = await prisma.aluno.create({
       data: {
@@ -55,6 +63,8 @@ const cadastrarAluno = async (req, res) => {
     });
     return res.status(201).json({ mensagem: "Aluno cadastrado com sucesso!", Aluno: alunoCadastrado });
   } catch (error) {
+    console.log(error);
+    
     return res.status(500).json({ mensagem: "Erro interno de servidor" });
   }
 };
@@ -63,6 +73,14 @@ const atualizarAluno = async (req, res) => {
   try {
     const { id } = req.params;
     const { nome, idade, email, notaprimeiromodulo, notasegundomodulo, turmaId } = req.body;
+    const turma = await prisma.turma.findUnique({
+      where: {
+        id: Number(turmaId),
+      },
+    })
+    if(!turma) {
+      return res.status(400).json({ mensagem: "ID da turma não encontrado" });
+    }
     const media = (notaprimeiromodulo + notasegundomodulo) / 2;
     const alunoAtualizado = await prisma.aluno.update({
       where: { id: Number(id) },
