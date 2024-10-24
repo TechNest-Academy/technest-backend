@@ -63,7 +63,7 @@ Este projeto é uma API para gerenciar alunos, permitindo o cadastro, listagem, 
 
 2. A API estará disponível em `http://localhost:3000`.
 
-3. Os endpoints estão descritos no Swagger para testes diretos via navegador. Alternativamente, você pode utilizar a [coleção JSON](https://github.com/TechNest-Academy/technest-backend/edit/login_jwt/README.md) no **Insomnia** ou **Postman**.
+3. Os endpoints estão descritos no Swagger para testes diretos via navegador. Alternativamente, você pode utilizar a [coleção JSON](https://github.com/TechNest-Academy/technest-backend/blob/docs/routes-json/docs/insomnia_collection.json) no **Insomnia** ou **Postman**.
 
 4. A documentação da API pode ser acessada via Swagger em:
 
