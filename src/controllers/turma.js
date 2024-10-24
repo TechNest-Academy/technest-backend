@@ -33,15 +33,17 @@ const detalharTurma = async (req, res) => {
     const turma = await prisma.turma.findUnique({
       where: { id: Number(id) },
       include: {
-        select: {
-          nome: true,
-          email: true,
-          idade: true,
-          notaPrimeiroModulo: true,
-          notaSegundoModulo: true,
-          media: true,
-        }
-      }
+        alunos: {
+          select: {
+            nome: true,
+            email: true,
+            idade: true,
+            notaPrimeiroModulo: true,
+            notaSegundoModulo: true,
+            media: true,
+          },
+        },
+      },
     });
     if (!turma) return res.status(400).json({ mensagem: "ID da turma não encontrado" });
     return res.status(200).json(turma);

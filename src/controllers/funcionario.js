@@ -50,6 +50,12 @@ const cadastrarFuncionario = async (req, res) => {
         email,
         senha: senhaCriptografada,
         cargo
+      },
+      select: {
+        id: true,
+        nome: true,
+        email: true,
+        cargo: true
       }
     })
     return res.status(201).json({ mensagem: "Funcionario cadastrado com sucesso!", Funcionario: FuncionarioCadastrado });
@@ -84,18 +90,24 @@ const loginFuncionario = async (req, res) => {
 const atualizarFuncionario = async (req, res) => {
   try {
     const { id } = req.params
-    const { nome, email, cargo } = req.body
-    const FuncionarioAtualizado = await prisma.funcionario.update({
-      where: { id: Number(id) },
-      data: {
-        nome,
-        email,
-        cargo
+    const { nome, email, senha, cargo } = req.body
+    const dadosAtualizados = { nome, email, senha, cargo };
+
+    if (senha) {
+      const isSamePassword = await bcrypt.compare(senha, funcionario.senha);
+      if (!isSamePassword) {
+        const hashedPassword = await bcrypt.hash(senha, 10);
+        dadosAtualizados.senha = hashedPassword;
       }
-    })
-    if (!FuncionarioAtualizado) return res.status(404).json({ mensagem: "ID do Funcionario não encontrado" })
+    }
+    const funcionarioAtualizado = await prisma.funcionario.update({
+      where: { id: Number(id) },
+      data: dadosAtualizados
+    });
+    if (!funcionarioAtualizado) return res.status(404).json({ mensagem: "ID do Funcionario não encontrado" })
     return res.status(200).json({ mensagem: "Funcionario atualizado com sucesso" });
   } catch (error) {
+    console.error(error);
     return res.status(500).json({ mensagem: "Erro interno de servidor" });
   }
 }
