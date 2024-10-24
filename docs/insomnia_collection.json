@@ -1,0 +1,104 @@
+{
+  "resources": [
+    {
+      "_id": "req__aluno_cadastrar_post",
+      "name": "Cadastrar um aluno",
+      "url": "http://localhost:3000//aluno/cadastrar",
+      "method": "POST",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {
+        "type": "bearer",
+        "token": ""
+      },
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\"body\": \"\"}"
+      }
+    },
+    {
+      "_id": "req__aluno_listar_get",
+      "name": "Listar todos os alunos",
+      "url": "http://localhost:3000//aluno/listar",
+      "method": "GET",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {
+        "type": "bearer",
+        "token": ""
+      },
+      "body": {
+        "mimeType": "application/json",
+        "text": "{}"
+      }
+    },
+    {
+      "_id": "req__aluno_detalhar_id_get",
+      "name": "Detalhar um aluno",
+      "url": "http://localhost:3000//aluno/detalhar/{id}",
+      "method": "GET",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {
+        "type": "bearer",
+        "token": ""
+      },
+      "body": {
+        "mimeType": "application/json",
+        "text": "{}"
+      }
+    },
+    {
+      "_id": "req__aluno_atualizar_id_put",
+      "name": "Atualizar dados de um aluno",
+      "url": "http://localhost:3000//aluno/atualizar/{id}",
+      "method": "PUT",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {
+        "type": "bearer",
+        "token": ""
+      },
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\"body\": \"\"}"
+      }
+    },
+    {
+      "_id": "req__aluno_excluir_id_delete",
+      "name": "Excluir um aluno",
+      "url": "http://localhost:3000//aluno/excluir/{id}",
+      "method": "DELETE",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {
+        "type": "bearer",
+        "token": ""
+      },
+      "body": {
+        "mimeType": "application/json",
+        "text": "{}"
+      }
+    }
+  ]
+}
