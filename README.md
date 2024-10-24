@@ -8,8 +8,12 @@ Este projeto é uma API simples para gerenciar alunos. Ele permite cadastrar, li
 - **Express**
 - **PostgreSQL**
 - **Swagger UI**
-- **Knex.js**
+- **swagger-autogen**
 - **dotenv**
+- **bcrypt**
+- **jsonwebtoken**
+- **prisma**
+- **cors**
 
 ## Requisitos
 
@@ -34,11 +38,7 @@ npm install
 3. Crie um arquivo `.env` na raiz do projeto e configure as seguintes variáveis de ambiente:
 
 ```bash
-PGHOST=localhost
-PGUSER=seu_usuario
-PGPASSWORD=sua_senha
-PGDATABASE=nome_do_banco
-PGPORT=5432
+DATABASE_URL="postgresql://username:password@host:port/database_name"
 PORT=3000
 ```
 
@@ -49,7 +49,7 @@ PORT=3000
 1. Para iniciar o servidor, use o comando:
 
 ```bash
-npm start
+npm run dev
 ```
 
 2. A API estará disponível em `http://localhost:3000`.
