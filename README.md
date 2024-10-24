@@ -77,3 +77,4 @@ Este projeto é uma API para gerenciar alunos, permitindo o cadastro, listagem, 
 - [Marcelo Costa](https://github.com/159753marcelo)
 - [Ewerton Bertoldo](https://github.com/EwertonRafael)
 - [Felipe Macedo](https://github.com/felipemacedo1)
+
