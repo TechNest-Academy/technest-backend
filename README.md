@@ -1,5 +1,4 @@
 <div style="display: flex; justify-content: space-between; align-items: center;">
-  <!-- Div esquerda (Título e logo) -->
   <div align="left">
     <h1>
       <a href="https://freeimage.host/i/2KsWCRR">
@@ -9,89 +8,73 @@
     </h1>
   </div>
 </div>
-Este projeto é uma API simples para gerenciar alunos e foi desenvolvido como atividade integradora. A API permite cadastrar, listar, detalhar, atualizar e excluir informações de alunos, professores e turmas. A API é desenvolvida utilizando Node.js, Express e PostgreSQL, com o uso de Knex.js como query builder.
+
+Este projeto é uma API para gerenciar alunos, permitindo o cadastro, listagem, atualização e exclusão de informações. A API foi desenvolvida utilizando **Node.js**, **Express**, **Prisma** e **PostgreSQL**, com autenticação JWT e documentação via **Swagger**.
+
 
 ## Tecnologias utilizadas
 
-- **Node.js**
-- **Express**
-- **PostgreSQL**
-- **Swagger UI**
-- **Knex.js**
-- **dotenv**
+- **Node.js**: Ambiente JavaScript do lado do servidor.
+- **Express**: Framework que facilita o desenvolvimento de rotas e APIs HTTP.
+- **PostgreSQL**: Banco de dados relacional pra persistir e gerenciar as informações da aplicação .
+- **Prisma**: ORM que simplifica as consultas no banco e migrações de dados.
+- **Swagger UI**: Ferramenta de documentação interativa pra APIs, onde dá pra testar as rotas direto no navegador.
+- **bcrypt**: Usado pra fazer o hash das senhas dos funcionarios.
+- **jsonwebtoken**: Gera tokens JWT pra autenticação e controle de acesso na aplicação.
+- **dotenv**: Carrega variáveis de ambiente do arquivo `.env` pra configurar a aplicação de forma segura.
+- **cors**: Middleware que libera o compartilhamento de recursos entre origens diferentes (cross-origin), necessário pra permitir requisições de outros domínios.
+
 
 ## Requisitos
 
-- Node.js instalado (versão 14.x ou superior)
-- PostgreSQL instalado e em execução
-- Um arquivo `.env` configurado corretamente com as variáveis de ambiente listadas abaixo
+- Node.js (versão 14.x ou superior)
+- PostgreSQL em execução
+- Arquivo `.env` configurado corretamente
 
 ## Configuração do ambiente
 
-1. Clone o repositório para o seu ambiente local:
+1. Clone o repositório:
 
-```bash
-git clone https://github.com/TechNest-Academy/technest-backend.git
-```
+    ```bash
+    git clone https://github.com/TechNest-Academy/technest-backend.git
+    ```
 
-2. Instale as dependências do projeto:
+2. Instale as dependências:
 
-```bash
-npm install
-```
+    ```bash
+    npm install
+    ```
 
-3. Crie um arquivo `.env` na raiz do projeto e configure as seguintes variáveis de ambiente:
+3. Configure as variáveis de ambiente no arquivo `.env`:
 
-```bash
-PGHOST=localhost
-PGUSER=seu_usuario
-PGPASSWORD=sua_senha
-PGDATABASE=nome_do_banco
-PGPORT=5432
-PORT=3000
-```
+    ```env
+    DATABASE_URL="postgresql://username:password@host:port/database_name"
+    PORT=3000
+    ```
 
-4. Certifique-se de que o PostgreSQL está em execução e o banco de dados configurado.
+4. Certifique-se de que o PostgreSQL está em execução.
 
 ## Rodando a aplicação
 
-1. Para iniciar o servidor, use o comando:
+1. Inicie o servidor:
 
-```bash
-npm start
-```
+    ```bash
+    npm run dev
+    ```
 
 2. A API estará disponível em `http://localhost:3000`.
 
-3. A documentação da API pode ser acessada em:
+3. Os endpoints estão descritos no Swagger para testes diretos via navegador. Alternativamente, você pode utilizar a [coleção JSON](https://github.com/TechNest-Academy/technest-backend/blob/docs/routes-json/docs/insomnia_collection.json) no **Insomnia** ou **Postman**.
 
-```
-http://localhost:3000/api-docs
-```
+4. A documentação da API pode ser acessada via Swagger em:
 
-## Endpoints
-
-### POST `/cadastrar`
-- Cadastra um novo aluno.
-- **Campos obrigatórios**: `nome`, `email`, `idade`, `primeiraNota`, `segundaNota`, `professor`, `sala`.
-
-### GET `/listar`
-- Lista todos os alunos cadastrados.
-
-### GET `/detalhar/:id`
-- Retorna os detalhes de um aluno específico pelo seu `id`.
-
-### PUT `/atualizar/:id`
-- Atualiza os dados de um aluno específico pelo seu `id`.
-
-### DELETE `/excluir/:id`
-- Exclui um aluno pelo seu `id`.
-
-## Documentação Swagger
-
-A documentação Swagger está disponível na rota `/api-docs` e detalha todos os endpoints da API com exemplos de requisições e respostas.
+    ```
+    http://localhost:3000/api-docs
+    ```
 
 
-#### Desenvolvido por:
+## Desenvolvedores
 
-- [Marcelo Costa](https://github.com/159753marcelo), [Ewerton Bertoldo](https://github.com/EwertonRafael) e [Felipe Macedo](https://github.com/felipemacedo1) 
+- [Marcelo Costa](https://github.com/159753marcelo)
+- [Ewerton Bertoldo](https://github.com/EwertonRafael)
+- [Felipe Macedo](https://github.com/felipemacedo1)

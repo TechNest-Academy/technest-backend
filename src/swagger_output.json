@@ -1,18 +1,30 @@
 {
   "swagger": "2.0",
   "info": {
-    "title": "API de Gerenciamento",
+    "title": "API da escola Generation",
     "description": "Documentação da API para Gerenciamento de Alunos, Turmas e Funcionários",
     "version": "1.0.0",
     "contact": {
-      "name": "Felipe Macedo",
-      "email": "felipe@example.com",
-      "url": "https://github.com/FelipeAJdev"
+      "name": ["Felipe Macedo,", " Ewerton Bertoldo,"," Marcelo Costa"],
+      "url": "https://github.com/TechNest-Academy/technest-backend"
     }
   },
   "host": "localhost:3000",
   "basePath": "/",
   "schemes": ["http", "https"],
+  "securityDefinitions": {
+    "bearerAuth": {
+      "type": "apiKey",
+      "name": "Authorization",
+      "in": "header",
+      "description": "Insira o token JWT no formato: Bearer {token}"
+    }
+  },
+  "security": [
+    {
+      "bearerAuth": []
+    }
+  ],
   "tags": [
     {
       "name": "Alunos",
@@ -296,6 +308,7 @@
       "post": {
         "summary": "Cadastrar um funcionário",
         "tags": ["Funcionários"],
+        "security": [], 
         "parameters": [
           {
             "in": "body",
@@ -309,6 +322,34 @@
         "responses": {
           "201": {
             "description": "Funcionário cadastrado com sucesso"
+          },
+          "400": {
+            "description": "Erro na requisição. Verifique os dados enviados."
+          },
+          "500": {
+            "description": "Erro interno no servidor"
+          }
+        }
+      }
+    },
+    "/login": {
+      "post": {
+        "summary": "login do funcionário",
+        "tags": ["Funcionários"],
+        "security": [], 
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Dados do funcionário a ser cadastrado",
+            "schema": {
+              "$ref": "#/definitions/Funcionario"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Funcionário logado com sucesso"
           },
           "400": {
             "description": "Erro na requisição. Verifique os dados enviados."
@@ -434,10 +475,6 @@
       "type": "object",
       "required": ["nome", "email", "idade", "turmaId"],
       "properties": {
-        "id": {
-          "type": "integer",
-          "example": 1
-        },
         "nome": {
           "type": "string",
           "example": "João da Silva"
@@ -468,10 +505,6 @@
       "type": "object",
       "required": ["nome", "instrutor"],
       "properties": {
-        "id": {
-          "type": "integer",
-          "example": 1
-        },
         "nome": {
           "type": "string",
           "example": "Turma A"
@@ -486,10 +519,6 @@
       "type": "object",
       "required": ["nome", "email", "senha", "cargo"],
       "properties": {
-        "id": {
-          "type": "integer",
-          "example": 1
-        },
         "nome": {
           "type": "string",
           "example": "Maria da Silva"
