@@ -304,6 +304,95 @@
         }
       }
     },
+    
+        "/turma/adicionar-aluno": {
+          "post": {
+            "summary": "Adicionar um aluno a uma turma",
+            "tags": ["Turmas"],
+            "parameters": [
+              {
+                "in": "body",
+                "name": "body",
+                "description": "Dados do aluno e da turma",
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "turmaId": {
+                      "type": "integer",
+                      "example": 1
+                    },
+                    "alunoId": {
+                      "type": "integer",
+                      "example": 101
+                    }
+                  }
+                }
+              }
+            ],
+            "responses": {
+              "200": {
+                "description": "Aluno adicionado à turma com sucesso",
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "mensagem": {
+                      "type": "string",
+                      "example": "Aluno adicionado à turma com sucesso"
+                    },
+                    "aluno": {
+                      "$ref": "#/definitions/Aluno"
+                    }
+                  }
+                }
+              },
+              "500": {
+                "description": "Erro ao adicionar aluno à turma"
+              }
+            }
+          }
+        },
+        "/turma/remover-aluno": {
+          "post": {
+            "summary": "Remover um aluno de uma turma",
+            "tags": ["Turmas"],
+            "parameters": [
+              {
+                "in": "body",
+                "name": "body",
+                "description": "Dados do aluno a ser removido",
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "alunoId": {
+                      "type": "integer",
+                      "example": 4
+                    }
+                  }
+                }
+              }
+            ],
+            "responses": {
+              "200": {
+                "description": "Aluno removido da turma com sucesso",
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "mensagem": {
+                      "type": "string",
+                      "example": "Aluno removido da turma com sucesso"
+                    },
+                    "aluno": {
+                      "$ref": "#/definitions/Aluno"
+                    }
+                  }
+                }
+              },
+              "500": {
+                "description": "Erro ao remover aluno da turma"
+              }
+            }
+          }
+        },
     "/funcionario/": {
       "post": {
         "summary": "Cadastrar um funcionário",
