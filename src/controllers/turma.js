@@ -125,7 +125,7 @@ const removerAlunoDaTurma = async (req, res) => {
     const { alunoId } = req.body;
     const alunoAtualizado = await prisma.aluno.update({
       where: { id: Number(alunoId) },
-      data: { turmaId: null }, // Remove o aluno da turma
+      data: { turmaId: null },
     });
     return res.status(200).json({ mensagem: "Aluno removido da turma com sucesso", aluno: alunoAtualizado });
   } catch (error) {
